@@ -1,6 +1,9 @@
 package com.yyh.lib;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,8 +22,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends Activity {
+
+    private ArrayList<ResolveInfo> mApps;
+    private PackageManager pm;
 
     // 成功
     private static final int WHAT_SUCCESS = 1;
@@ -36,6 +45,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pm = getPackageManager();
     }
 
     private Handler handler = new Handler() {
@@ -165,5 +175,27 @@ public class MainActivity extends Activity {
             }
             return WHAT_FAIL_PATCH;
         }
+    }
+
+    /**
+     * 获取app列表
+     */
+    private void initApp() {
+        // 获取android设备的应用列表
+        Intent intent = new Intent(Intent.ACTION_MAIN); // 动作匹配
+        intent.addCategory(Intent.CATEGORY_LAUNCHER); // 类别匹配
+        mApps = (ArrayList<ResolveInfo>) pm.queryIntentActivities(intent, 0);
+        // 排序
+        Collections.sort(mApps, new Comparator<ResolveInfo>() {
+
+            @Override
+            public int compare(ResolveInfo a, ResolveInfo b) {
+                // 排序规则
+                PackageManager pm = getPackageManager();
+                return String.CASE_INSENSITIVE_ORDER.compare(a.loadLabel(pm)
+                        .toString(), b.loadLabel(pm).toString()); // 忽略大小写
+            }
+        });
+
     }
 }
