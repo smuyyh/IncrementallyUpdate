@@ -1,7 +1,8 @@
 # IncrementallyUpdate
 Android 实现应用的增量更新和升级
 
-### 概念
+### 原理
+增量更新原理：服务端通过新版本APK和旧版本APK生成patch补丁（也成为差分包），客户端更新的时候只需要下载差分包到本地，然后从system/app取出旧版本APK，通过差分包来合成新版本的APK，这个过程实际上就是打补丁。
 
 ```java
 String srcDir = Environment.getExternalStorageDirectory().toString() + "/DaemonProcess-1.apk";
