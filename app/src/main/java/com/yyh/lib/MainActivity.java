@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yuyh.inc.update.R;
@@ -20,6 +22,7 @@ import com.yyh.lib.utils.FileUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ import java.util.Comparator;
 
 public class MainActivity extends Activity {
 
+    private ProgressBar loadding;
     private ArrayList<ResolveInfo> mApps;
     private PackageManager pm;
 
@@ -45,6 +49,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadding = (ProgressBar) findViewById(R.id.loadding);
         pm = getPackageManager();
     }
 
@@ -77,15 +82,26 @@ public class MainActivity extends Activity {
     };
 
     public void copy(View view) {
+        loadding.setVisibility(View.VISIBLE);
         new CopyTask().execute(srcDir, "DaemonProcess-1.apk", destDir1, "DaemonProcess-2.apk");
     }
 
     public void bsdiff(View view) {
+        loadding.setVisibility(View.VISIBLE);
         new DiffTask().execute();
     }
 
     public void bspatch(View view) {
+        loadding.setVisibility(View.VISIBLE);
         new PatchTask().execute();
+    }
+
+    public void installOld(View view) {
+        install(srcDir);
+    }
+
+    public void installNew(View view) {
+        install(destDir2);
     }
 
     private class CopyTask extends AsyncTask<String, Void, Integer> {
@@ -120,6 +136,12 @@ public class MainActivity extends Activity {
             handler.obtainMessage(0).sendToTarget();
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            loadding.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -146,6 +168,12 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
             return WHAT_FAIL_PATCH;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            loadding.setVisibility(View.GONE);
         }
     }
 
@@ -175,6 +203,27 @@ public class MainActivity extends Activity {
             }
             return WHAT_FAIL_PATCH;
         }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            loadding.setVisibility(View.GONE);
+        }
+    }
+
+    private void install(String dir) {
+        String command = "chmod 777 " + dir;
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            runtime.exec(command); // 可执行权限
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setDataAndType(Uri.parse("file://" + dir), "application/vnd.android.package-archive");
+        startActivity(intent);
     }
 
     /**

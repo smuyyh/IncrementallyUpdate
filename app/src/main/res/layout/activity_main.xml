@@ -19,37 +19,81 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_copy"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="copy"
-        android:paddingBottom="0dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="0dp"
-        android:text="copy resource" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_start"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="bsdiff"
-        android:paddingBottom="0dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="0dp"
-        android:text="bsdiff" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_end"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick="bspatch"
-        android:paddingBottom="0dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="0dp"
-        android:text="bspatch" />
+            <Button
+                android:id="@+id/btn_copy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="copy"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp"
+                android:text="copy resource" />
+
+            <Button
+                android:id="@+id/btn_install_old"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="installOld"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp"
+                android:text="install old apk" />
+
+            <Button
+                android:id="@+id/btn_start"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="bsdiff"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp"
+                android:text="bsdiff" />
+
+            <Button
+                android:id="@+id/btn_end"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="bspatch"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp"
+                android:text="bspatch" />
+
+            <Button
+                android:id="@+id/btn_install"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="installNew"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp"
+                android:text="install new apk" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/loadding"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
 
 </LinearLayout>
