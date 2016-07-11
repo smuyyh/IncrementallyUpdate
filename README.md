@@ -2,7 +2,17 @@
 Android 实现应用的增量更新和升级
 
 ### 原理
-增量更新原理：服务端通过新版本APK和旧版本APK生成patch补丁（也成为差分包），客户端更新的时候只需要下载差分包到本地，然后从system/app取出旧版本APK，通过差分包来合成新版本的APK，这个过程实际上就是打补丁。
+服务端通过新版本APK和旧版本APK生成patch补丁（也成为差分包），客户端更新的时候只需要下载差分包到本地，然后从system/app取出旧版本APK，通过差分包来合成新版本的APK，这个过程实际上就是打补丁。
+
+1、copy resource：拷贝旧版本APK以及新版本APK到SD卡。为了后面进行生成差分包。
+
+2、install old apk：安装旧版本的APK。
+
+3、bsdiff：生成差分包。这个实际上应该是在服务端完成，目前服务端工具我还没制作出来，后面补上。
+
+4、bspatch：通过差分包及旧版本APK生成新版本APK。
+
+5、install new apk：安装生成的新版本APK。
 
 ```java
 String srcDir = Environment.getExternalStorageDirectory().toString() + "/DaemonProcess-1.apk";
