@@ -29,6 +29,15 @@ patchDir：差分包。通过旧版本APK+新版本APK生成差分包。
 ```xml
 ndk.dir=/Users/yuyuhang/Documents/Android/android-ndk-r10c
 ```
+若不想编译jni资源，也可直接使用项目提供的so库。在build.gradle配置so库路径
+```java
+sourceSets {
+        main {
+            // jni.srcDirs = ['src/main/jni', 'src/main/jni/']
+            jniLibs.srcDirs = ['libs'] // 若不想编译jni代码，可直接引用so库，ndk编译相关脚本注释掉
+        }
+    }
+```
 
 ### 使用
 调用生成差分包及合成APK的native方法。

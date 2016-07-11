@@ -22,7 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jni/'] } }
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/jni', 'src/main/jni/']
+            // jniLibs.srcDirs = ['libs'] // 若不想编译jni代码，可直接引用so库，ndk编译相关脚本注释掉
+        }
+    }
 }
 
 dependencies {
