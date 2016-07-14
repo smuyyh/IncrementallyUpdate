@@ -37,7 +37,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="0dp"
-                android:text="copy resource" />
+                android:text="拷贝资源" />
 
             <Button
                 android:id="@+id/btn_install_old"
@@ -48,7 +48,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="0dp"
-                android:text="install old apk" />
+                android:text="安装旧版本APK" />
 
             <Button
                 android:id="@+id/btn_start"
@@ -59,7 +59,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="0dp"
-                android:text="bsdiff" />
+                android:text="生成补丁" />
 
             <Button
                 android:id="@+id/btn_end"
@@ -70,7 +70,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="0dp"
-                android:text="bspatch" />
+                android:text="打补丁" />
 
             <Button
                 android:id="@+id/btn_install"
@@ -81,7 +81,18 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="0dp"
-                android:text="install new apk" />
+                android:text="安装新版本APK" />
+
+            <Button
+                android:id="@+id/app_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="appList"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp"
+                android:text="获取某个应用的APK安装文件" />
 
         </LinearLayout>
 

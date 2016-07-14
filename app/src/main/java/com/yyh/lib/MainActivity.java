@@ -2,15 +2,12 @@ package com.yyh.lib;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,15 +22,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class MainActivity extends Activity {
 
     private ProgressBar loadding;
-    private ArrayList<ResolveInfo> mApps;
-    private PackageManager pm;
 
     // 成功
     private static final int WHAT_SUCCESS = 1;
@@ -50,7 +42,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadding = (ProgressBar) findViewById(R.id.loadding);
-        pm = getPackageManager();
     }
 
     private Handler handler = new Handler() {
@@ -127,7 +118,6 @@ public class MainActivity extends Activity {
                     os.flush();
                     is.close();
                     os.close();
-                    Log.i("----", "copy " + params[i] + " successed");
                 } catch (Exception e) {
                     handler.obtainMessage(1).sendToTarget();
                     return null;
@@ -226,25 +216,9 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    /**
-     * 获取app列表
-     */
-    private void initApp() {
-        // 获取android设备的应用列表
-        Intent intent = new Intent(Intent.ACTION_MAIN); // 动作匹配
-        intent.addCategory(Intent.CATEGORY_LAUNCHER); // 类别匹配
-        mApps = (ArrayList<ResolveInfo>) pm.queryIntentActivities(intent, 0);
-        // 排序
-        Collections.sort(mApps, new Comparator<ResolveInfo>() {
-
-            @Override
-            public int compare(ResolveInfo a, ResolveInfo b) {
-                // 排序规则
-                PackageManager pm = getPackageManager();
-                return String.CASE_INSENSITIVE_ORDER.compare(a.loadLabel(pm)
-                        .toString(), b.loadLabel(pm).toString()); // 忽略大小写
-            }
-        });
-
+    public void appList(View view) {
+        Intent intent = new Intent(this, ApplistActivity.class);
+        startActivity(intent);
     }
+
 }
