@@ -138,5 +138,8 @@ public class PatchUtils {
 ```
 
 
-### 新版本APK安装
-![image description](https://github.com/smuyyh/IncrementallyUpdate/blob/master/screenshot/2.png)
+### 项目截图
+
+<img src="https://github.com/smuyyh/IncrementallyUpdate/blob/master/screenshot/1.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/IncrementallyUpdate/blob/master/screenshot/3.png?raw=true" width="280"/>
+<img src="https://github.com/smuyyh/IncrementallyUpdate/blob/master/screenshot/2.png?raw=true" width="280"/>
